@@ -25,16 +25,19 @@ ActiveRecord::Schema.define(version: 20200330192813) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.string "name"
-    t.string "type"
+    t.string  "name"
+    t.string  "gametype"
+    t.integer "user_id"
   end
 
   create_table "players", force: :cascade do |t|
-    t.string "name"
+    t.string "first_name"
+    t.string "last_name"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
+    t.string "first_name"
+    t.string "last_name"
     t.string "email"
     t.string "password_digest"
   end
