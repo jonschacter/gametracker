@@ -52,4 +52,21 @@ class GameController < ApplicationController
             redirect '/login'
         end
     end
+
+    get '/games/:id/edit' do
+        @game = Game.find_by_id(params[:id])
+        if Helpers.logged_in?(session) && @game.user == Helpers.current_user(session)
+            erb :"games/edit"
+        else
+            redirect '/login'
+        end
+    end
+
+    patch '/games/:id' do
+        @game = Game.find_by_id(params[:id])
+        @game.name = params[:game][:name]
+        @game.gametype = params[:game][:type]
+        @game.save
+        redirect "/games/#{@game.id}"
+    end
 end

@@ -1,0 +1,16 @@
+<h1>Edit Game</h1>
+<form action="/games/<%= @game.id %>" method="POST">
+    <input id="hidden" type="hidden" name="_method" value="PATCH">
+    <label for="name">Name: </label>
+    <input type="text" id="name" name="game[name]" value="<%= @game.name %>"><br>
+    <label for="type">Type: </label>
+    <select name="game[type]">
+        <option value="Board" <% if @game.gametype == "Board" %>selected<% end %>>Board</option>
+        <option value="Video" <% if @game.gametype == "Video" %>selected<% end %>>Video</option>
+        <option value="Card" <% if @game.gametype == "Card" %>selected<% end %>>Card</option>
+        <option value="Dice" <% if @game.gametype == "Dice" %>selected<% end %>>Dice</option>
+        <option value="Other" <% if @game.gametype == "Other" || @game.gametype.nil? %>selected<% end %>>Other</option>
+    </select><br>
+    <input type="submit" value="Edit">
+</form>
+
