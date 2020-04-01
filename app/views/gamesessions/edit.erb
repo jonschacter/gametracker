@@ -23,6 +23,9 @@
     </select><br>
     <h3>Player Info</h3>
     <p>Player Names: (Use "Me" for yourself)</p>
+    <input type="text" name="gamesessions[players][]" value="Me">
+    Winner? <input type="radio" name="gamesession[winner]" value="<%= @counter %>" <% if @gamesession.winner.name == "Current User" %>checked<% end %>>
+    <br>
     <% @counter = 2 %>
     <% 7.times do %>
         <input type="text" name="gamesession[players][]"
