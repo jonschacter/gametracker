@@ -13,4 +13,13 @@ class GameSessionController < ApplicationController
             redirect '/login'
         end
     end
+
+    get '/gamesessions/:id' do
+        @gamesession = GameSession.find_by_id(params[:id])
+        if Helpers.logged_in?(session) && @gamesession.user == Helpers.current_user(session)
+            erb :"gamesessions/show"
+        else
+            redirect '/login'
+        end
+    end
 end

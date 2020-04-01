@@ -1,0 +1,18 @@
+<h1><a href="/games/<%= @gamesession.game.id %>"><%= @gamesession.game.name %></a></h1>
+<h3><%= @gamesession.format_date %></h3>
+
+<% @gamesession.players.each do |player| %>
+    <% if player.name == "Current User" %>
+        <p>Me
+            <% if player.id == @gamesession.winner_id %>
+                - WINNER!
+            <% end %>
+        </p>
+    <% else %>
+        <p><%= player.name %>
+            <% if player.id == @gamesession.winner_id %>
+                - WINNER!
+            <% end %>
+        </p>
+    <% end %>
+<% end %>
