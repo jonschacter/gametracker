@@ -38,11 +38,8 @@ class UserController < ApplicationController
     end
 
     get "/home" do
-        if Helpers.logged_in?(session)
-            @user = Helpers.current_user(session)
-            erb :"users/home"
-        else
-            redirect "/login"
-        end
+        redirect_if_not_logged_in
+        @user = Helpers.current_user(session)
+        erb :"users/home"
     end
 end

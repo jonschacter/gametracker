@@ -13,4 +13,13 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
+  def redirect_if_not_logged_in
+    if !Helpers.logged_in?(session)
+        redirect '/login'
+    end
+  end
+
+  def matching_user?(object)
+    object.user == Helpers.current_user(session)
+  end
 end
