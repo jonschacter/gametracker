@@ -48,6 +48,7 @@ class GameController < ApplicationController
     get '/games/:id' do
         @game = Game.find_by_id(params[:id])
         if Helpers.logged_in?(session) && @game.user == Helpers.current_user(session)
+            @gamesessions = GameSession.where(game_id: @game.id)
             erb :"games/show"
         else
             redirect '/login'
