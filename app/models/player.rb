@@ -1,3 +1,4 @@
 class Player < ActiveRecord::Base
-    has_and_belongs_to_many :game_sessions
+    has_many :game_sessions_players
+    has_many :gamesessions, through: :game_sessions_players
 end

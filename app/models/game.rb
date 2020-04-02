@@ -6,7 +6,7 @@ class Game < ActiveRecord::Base
         gamesessions = GameSession.where(game_id: self.id)
         my_wins = []
         gamesessions.each do |gamesession|
-            if gamesession.winner.name == "Current User"
+            if gamesession.winner.include?(Player.find_by(name: "Current User"))
                 my_wins << gamesession
             end
         end

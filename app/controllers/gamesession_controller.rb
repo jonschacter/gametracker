@@ -43,14 +43,19 @@ class GameSessionController < ApplicationController
             end
         end
 
-        @winner = @players[params[:gamesession][:winner].to_i - 1]
-        
+        @winners=[]
+        if params[:gamesession][:winners]
+            params[:gamesession][:winners].each do |winner_num|
+                @winners << @players[winner_num.to_i - 1]
+            end
+        end
+
         @gamesession = GameSession.new
         @gamesession.date = params[:gamesession][:date]
         @gamesession.game = @game
         @gamesession.players = @players
-        @gamesession.winner = @winner
         @gamesession.save
+        @gamesession.winner = @winners
 
         redirect "/gamesessions/#{@gamesession.id}"
     end
@@ -66,6 +71,7 @@ class GameSessionController < ApplicationController
 
     get '/gamesessions/:id/edit' do
         @gamesession = GameSession.find_by_id(params[:id])
+        @user_player = Player.find_by(name: "Current User")
         if Helpers.logged_in?(session) && @gamesession.user == Helpers.current_user(session)
             @user = Helpers.current_user(session)
             @games = Game.where(user_id: @user.id)
@@ -76,7 +82,6 @@ class GameSessionController < ApplicationController
     end
 
     patch '/gamesessions/:id' do
-        @gamesession = GameSession.find_by_id(params[:id])
         if params[:game][:name] == "New"
             @game = Game.new(name: params[:new_game][:name])
             @game.gametype = params[:new_game][:type]
@@ -95,14 +100,19 @@ class GameSessionController < ApplicationController
             end
         end
 
-        @winner = @players[params[:gamesession][:winner].to_i - 1]
-        
-        @gamesession = GameSession.new
+        @winners=[]
+        if params[:gamesession][:winners]
+            params[:gamesession][:winners].each do |winner_num|
+                @winners << @players[winner_num.to_i - 1]
+            end
+        end
+
+        @gamesession = GameSession.find_by_id(params[:id])
         @gamesession.date = params[:gamesession][:date]
         @gamesession.game = @game
         @gamesession.players = @players
-        @gamesession.winner = @winner
         @gamesession.save
+        @gamesession.winner = @winners
 
         redirect "/gamesessions/#{@gamesession.id}"
     end

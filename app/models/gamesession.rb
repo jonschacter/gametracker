@@ -1,8 +1,9 @@
 class GameSession < ActiveRecord::Base
     belongs_to :game
     has_one :user, through: :game
-    has_and_belongs_to_many :players
-
+    has_many :game_sessions_players
+    has_many :players, through: :game_sessions_players
+    
     def format_date
         all_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
         datearray = self.date.split("-")
@@ -12,12 +13,24 @@ class GameSession < ActiveRecord::Base
         "#{month} #{day}, #{year}"
     end
 
-    def winner=(winner_obj)
-        self.winner_id = winner_obj.id
-        self.save 
+    def winner=(player_array)
+        self.reset_winners
+        player_array.each do |player|
+            join_row = self.game_sessions_players.find{|o| o.player_id == player.id}
+            join_row.update(winner?: true)
+        end
     end
 
     def winner
-        Player.find_by_id(self.winner_id)
+        array = self.game_sessions_players.where(winner?: true)
+        array.collect do |join_row|
+            Player.find_by_id(join_row.player_id)
+        end
+    end
+
+    def reset_winners
+        self.game_sessions_players.each do |join_row|
+            join_row.update(winner?: false)
+        end
     end
 end

@@ -71,10 +71,4 @@ class GameController < ApplicationController
         @game.save
         redirect "/games/#{@game.id}"
     end
-
-    delete '/games/:id' do
-        @game = Game.find_by_id(params[:id])
-        @game.delete
-        redirect '/games'
-    end
 end

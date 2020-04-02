@@ -4,13 +4,13 @@
 <% @gamesession.players.each do |player| %>
     <% if player.name == "Current User" %>
         <p>Me
-            <% if player.id == @gamesession.winner_id %>
+            <% if @gamesession.winner.include?(player) %>
                 - WINNER!
             <% end %>
         </p>
     <% else %>
         <p><%= player.name %>
-            <% if player.id == @gamesession.winner_id %>
+            <% if @gamesession.winner.include?(player) %>
                 - WINNER!
             <% end %>
         </p>

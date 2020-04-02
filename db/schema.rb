@@ -15,13 +15,13 @@ ActiveRecord::Schema.define(version: 20200330192813) do
 
   create_table "game_sessions", force: :cascade do |t|
     t.integer "game_id"
-    t.integer "winner_id"
     t.string  "date"
   end
 
   create_table "game_sessions_players", force: :cascade do |t|
     t.integer "game_session_id"
     t.integer "player_id"
+    t.boolean "winner?",         default: false
   end
 
   create_table "games", force: :cascade do |t|
