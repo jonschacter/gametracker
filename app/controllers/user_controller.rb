@@ -33,7 +33,7 @@ class UserController < ApplicationController
             session[:user_id] = user.id
             redirect "/home"
         else
-            flash[:error] = "Incorrect password, please try again"
+            flash[:error] = "Incorrect email or password, please try again"
             redirect "/login"
         end
     end

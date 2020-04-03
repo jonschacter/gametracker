@@ -4,7 +4,9 @@
 <a href="/games/<%= @game.id %>/edit">Edit Game</a>
 
 <h1>Sessions</h1>
+
 <h3>My Winrate: <%= @game.my_winrate %>%</h3>
+
 <% @gamesessions.each do |gamesession| %>
 <h3><%= gamesession.format_date %></h3>
     <% gamesession.players.each do |player| %>
@@ -23,4 +25,5 @@
         <% end %>
     <% end %>
 <% end %>
+<br>
 <a href="/games">Back</a>

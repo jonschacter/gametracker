@@ -10,13 +10,14 @@ class GameController < ApplicationController
         @dicegames = []
         @othergames = []
         @games.each do |game|
-            if game.gametype == "Board"
+            case game.gametype
+            when "Board"
                 @boardgames << game
-            elsif game.gametype == "Video"
+            when "Video"
                 @videogames << game
-            elsif game.gametype == "Card"
+            when "Card"
                 @cardgames << game
-            elsif game.gametype == "Dice"
+            when "Dice"
                 @dicegames << game
             else
                 @othergames << game

@@ -16,7 +16,7 @@ class GameSession < ActiveRecord::Base
     def winner=(player_array)
         self.reset_winners
         player_array.each do |player|
-            join_row = self.game_sessions_players.find{|o| o.player_id == player.id}
+            join_row = self.game_sessions_players.find{|obj| obj.player_id == player.id}
             join_row.update(winner?: true)
         end
     end
