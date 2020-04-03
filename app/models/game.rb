@@ -4,12 +4,16 @@ class Game < ActiveRecord::Base
 
     def my_winrate
         gamesessions = GameSession.where(game_id: self.id)
-        my_wins = []
-        gamesessions.each do |gamesession|
-            if gamesession.winner.include?(Player.find_by(name: "Current User"))
-                my_wins << gamesession
+        if gamesessions.empty?
+            "N/A"
+        else
+            my_wins = []
+            gamesessions.each do |gamesession|
+                if gamesession.winner.include?(Player.find_by(name: "Current User"))
+                    my_wins << gamesession
+                end
             end
+            percent = (my_wins.length.to_f / gamesessions.length.to_f * 100).round(2)
         end
-        percent = (my_wins.length.to_f / gamesessions.length.to_f * 100).round(2)
     end
 end

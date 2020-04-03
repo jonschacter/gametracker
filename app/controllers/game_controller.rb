@@ -37,7 +37,7 @@ class GameController < ApplicationController
         @game.gametype = params[:game][:type]
         @game.user = Helpers.current_user(session)
         @game.save
-        redirect '/games'
+        redirect "/games/#{@game.id}"
     end
 
     get '/games/:id' do
@@ -69,5 +69,15 @@ class GameController < ApplicationController
         @game.gametype = params[:game][:type]
         @game.save
         redirect "/games/#{@game.id}"
+    end
+
+    delete '/games/:id' do
+        @game = Game.find_by_id(params[:id])
+        @gamesessions = GameSession.where(game_id: @game.id)
+        @gamesessions.each do |gamesession|
+            gamesession.delete
+        end
+        @game.delete
+        redirect '/games'
     end
 end

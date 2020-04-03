@@ -2,10 +2,22 @@
 <p>Type: <%= @game.gametype %></p>
 
 <a href="/games/<%= @game.id %>/edit">Edit Game</a>
+<br><br>
+<form action="/games/<%= @game.id %>" method="POST">
+    <input type="hidden" id="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete Game">
+</form>
+<p>WARNING! This will also delete any associated sessions of this game.</p>
 
 <h1>Sessions</h1>
 
-<h3>My Winrate: <%= @game.my_winrate %>%</h3>
+<h3>My Winrate: 
+<% if @game.my_winrate == "N/A" %>
+N/A
+<% else %>
+<%= @game.my_winrate %>%
+<% end %>
+</h3>
 
 <% @gamesessions.each do |gamesession| %>
 <h3><%= gamesession.format_date %></h3>
