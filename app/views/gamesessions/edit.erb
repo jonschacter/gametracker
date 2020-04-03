@@ -38,7 +38,7 @@
         <% end %>
         >
         Winner?
-        <input type="checkbox" name="gamesession[winner][]" value="<% @counter + 1 %>"
+        <input type="checkbox" name="gamesession[winner][]" value="<%= @counter + 1 %>"
         <% if @gamesession.winner.include?(@gamesession.players[@counter]) %>
             checked
         <% end %>

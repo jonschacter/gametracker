@@ -104,12 +104,11 @@ class GameSessionController < ApplicationController
         end
 
         @winners=[]
-        if params[:gamesession][:winners]
-            params[:gamesession][:winners].each do |winner_num|
+        if params[:gamesession][:winner]
+            params[:gamesession][:winner].each do |winner_num|
                 @winners << @players[winner_num.to_i - 1]
             end
         end
-
         @gamesession = GameSession.find_by_id(params[:id])
         @gamesession.date = params[:gamesession][:date]
         @gamesession.game = @game
