@@ -18,7 +18,7 @@ And navigate your browser to localhost:9393 as instructed.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/jonschacter/top-albums-cli
+Bug reports and pull requests are welcome on GitHub at https://github.com/jonschacter/gametracker
 
 ## License
 
