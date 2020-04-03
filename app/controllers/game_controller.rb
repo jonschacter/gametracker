@@ -46,6 +46,7 @@ class GameController < ApplicationController
             @gamesessions = GameSession.where(game_id: @game.id)
             erb :"games/show"
         else
+            flash[:error] = "Your account cannot access this game"
             redirect '/games'
         end
     end
@@ -56,6 +57,7 @@ class GameController < ApplicationController
         if matching_user?(@game)
             erb :"games/edit"
         else
+            flash[:error] = "Your account cannot access this game"
             redirect '/games'
         end
     end

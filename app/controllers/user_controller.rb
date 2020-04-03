@@ -7,7 +7,11 @@ class UserController < ApplicationController
     end
 
     post "/signup" do
-        if params[:first_name] == "" || params[:last_name] == "" || params[:email] == "" || params[:password] == "" || User.find_by(email: params[:email])
+        if params[:first_name] == "" || params[:last_name] == "" || params[:email] == "" || params[:password] == ""
+            flash[:error] = "Please fill out all fields and try again"
+            redirect "/signup"
+        elsif User.find_by(email: params[:email])
+            flash[:error] = "That email address already has an account, please log-in or try a different email"
             redirect "/signup"
         else
             user = User.create(first_name: params[:first_name].capitalize, last_name: params[:last_name].capitalize, email: params[:email], password: params[:password])
@@ -28,8 +32,10 @@ class UserController < ApplicationController
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id
             redirect "/home"
+        else
+            flash[:error] = "Incorrect password, please try again"
+            redirect "/login"
         end
-        redirect "/login"
     end
     
     get "/logout" do

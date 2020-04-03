@@ -29,7 +29,9 @@
     padding: 2.25%; /* 18px / 800px */
     width: 85%;
   }
-
+  .flash {
+      color: red;
+  }
   h1 {
     font-size: 36px;
     line-height: 54px;

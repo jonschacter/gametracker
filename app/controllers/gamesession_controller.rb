@@ -20,6 +20,7 @@ class GameSessionController < ApplicationController
 
     post '/gamesessions/new' do
         if !Helpers.valid_date?(params[:gamesession][:date])
+            flash[:error] = "Not a valid date - Please check formatting"
             redirect '/gamesessions/new'
         end
             
@@ -64,6 +65,7 @@ class GameSessionController < ApplicationController
         if matching_user?(@gamesession)
             erb :"gamesessions/show"
         else
+            flash[:error] = "Your account cannot access this session"
             redirect '/gamesessions/'
         end
     end
@@ -77,6 +79,7 @@ class GameSessionController < ApplicationController
             @games = Game.where(user_id: @user.id)
             erb :"gamesessions/edit"
         else
+            flash[:error] = "Your account cannot access this session"
             redirect '/gamesessions'
         end
     end
